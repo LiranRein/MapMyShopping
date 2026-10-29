@@ -9,6 +9,6 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
-    include: ['tests/**/*.test.{js,jsx}'],
+    include: ['tests/unit/**/*.test.{js,jsx}'],
   },
 });

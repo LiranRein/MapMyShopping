@@ -3,17 +3,14 @@ import {
   Check,
   ChevronLeft,
   CircleCheck,
-  House,
   LayoutGrid,
-  ListChecks,
   Mic,
-  Plus,
   Search,
   Settings,
   Star,
-  UserRound,
 } from 'lucide-preact';
 import { he } from '../../locale/he.js';
+import { BottomNav } from './BottomNav.jsx';
 import { homePlaceholderData as data } from './homePlaceholderData.js';
 
 const RING_RADIUS = 40;
@@ -25,35 +22,7 @@ const SHORTCUTS = [
   { id: 'catalog', label: he.home.shortcuts.catalog, Icon: LayoutGrid },
 ];
 
-const NAV_START = [
-  { id: 'home', label: he.nav.home, Icon: House, current: true },
-  { id: 'list', label: he.nav.list, Icon: ListChecks },
-];
-
-const NAV_END = [
-  { id: 'favorites', label: he.nav.favorites, Icon: Star },
-  { id: 'household', label: he.nav.household, Icon: UserRound },
-];
-
-function NavItem({ id, label, Icon, current }) {
-  const content = (
-    <>
-      <Icon size={22} strokeWidth={2} aria-hidden="true" />
-      <span>{label}</span>
-    </>
-  );
-  return current ? (
-    <a href="/" class="nav-item" aria-current="page" data-nav={id}>
-      {content}
-    </a>
-  ) : (
-    <span class="nav-item" aria-disabled="true" data-nav={id}>
-      {content}
-    </span>
-  );
-}
-
-export function HomeScreen() {
+export function HomeScreen({ onNavigate }) {
   const { totalItems, collectedItems, areaCount, routeStops } = data;
   const ringFill = (collectedItems / totalItems) * RING_CIRCUMFERENCE;
 
@@ -181,17 +150,7 @@ export function HomeScreen() {
         </main>
       </div>
 
-      <nav class="bottom-nav" aria-label={he.nav.label}>
-        {NAV_START.map((item) => (
-          <NavItem key={item.id} {...item} />
-        ))}
-        <button type="button" class="nav-add" aria-label={he.nav.add} disabled>
-          <Plus size={28} strokeWidth={2} aria-hidden="true" />
-        </button>
-        {NAV_END.map((item) => (
-          <NavItem key={item.id} {...item} />
-        ))}
-      </nav>
+      <BottomNav current="home" onNavigate={onNavigate} />
     </div>
   );
 }

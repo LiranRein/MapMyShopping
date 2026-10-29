@@ -5,7 +5,7 @@
 - Icons: `lucide-preact`. Font: Rubik, self-hosted via `@fontsource-variable/rubik`.
 - Backend: Supabase (Postgres + RLS, Auth anonymous sign-in, Realtime, RPC; Edge Functions only where the Auth admin API is needed) (ADR 0003, 0006).
 - Hosting: Vercel (`vercel.json`), static `dist/`.
-- Tests: Vitest 5 + jsdom + `@testing-library/preact` (unit); Vitest against local Supabase (integration, from Phase 1); Playwright (E2E, from Phase 1) (ADR 0002).
+- Tests: Vitest 5 + jsdom + `@testing-library/preact` (unit); Vitest against the hosted dev project `MapMyShopping` (integration, ADR 0012 / C1); Playwright 1.64 Chromium on 375x812 (E2E) (ADR 0002).
 - Lint / format: ESLint 10 flat config + Prettier 3.
 - Node >= 22 (CI uses 22).
 
@@ -15,16 +15,20 @@
 | Install | `npm ci` |
 | Dev server | `npm run dev` (http://localhost:5173) |
 | Unit tests | `npm test` |
+| Integration tests (hosted dev, needs `.env.test.local`) | `npm run test:integration` |
+| E2E tests (hosted dev, needs `.env.test.local`; first run `npx playwright install chromium`) | `npm run test:e2e` |
 | Lint | `npm run lint` |
 | Format check / fix | `npm run format:check` / `npm run format` |
 | Build (+ bundle secret scan) | `npm run build` |
 | Secret scan only | `npm run scan:secrets` |
 | Preview production build | `npm run preview` |
-| Local Supabase (needs Docker) | `npm run db:start` / `npm run db:stop` / `npm run db:reset` |
-| New migration | `npx supabase migration new <name>` |
+| Local Supabase (needs Docker; not used since C1, ADR 0012) | `npm run db:start` / `npm run db:stop` / `npm run db:reset` |
+| New migration | add `supabase/migrations/<version>_<name>.sql`, apply to the dev project, keep the file version equal to the applied version |
 | Deploy | Vercel Git integration (push) or `npx vercel` / `npx vercel --prod` by the owner |
 
-Every phase: run `npm run lint`, `npm run format:check`, `npm test`, `npm run build` before writing the report.
+Every phase: run `npm run lint`, `npm run format:check`, `npm test`, `npm run test:integration`, `npm run test:e2e`, `npm run build` before writing the report.
+
+Test data on the shared dev project: names prefixed `t_<runId>_`, deleted after each run; `t_` data older than 24h swept by the integration global setup.
 
 ## Folder layout
 - `src/presentation/` - screens, components, styles. No Supabase or IndexedDB calls here.
@@ -33,7 +37,7 @@ Every phase: run `npm run lint`, `npm run format:check`, `npm test`, `npm run bu
 - `src/security/` - session, device binding, client-side role helpers (UX only).
 - `src/locale/he.js` - all UI strings.
 - `supabase/migrations/` - SQL migrations; `supabase/config.toml` - local stack.
-- `tests/unit/`, `tests/integration/`, `tests/e2e/`.
+- `tests/unit/`, `tests/integration/` (harness in `harness.js`), `tests/e2e/` (Playwright).
 - `docs/adr/` - architecture decisions; `docs/` - findings.
 - `scripts/` - build-time tooling.
 

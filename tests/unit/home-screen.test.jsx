@@ -1,5 +1,5 @@
-import { afterEach, describe, expect, it } from 'vitest';
-import { cleanup, render, screen, within } from '@testing-library/preact';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/preact';
 import { HomeScreen } from '../../src/presentation/screens/HomeScreen.jsx';
 
 describe('HomeScreen', () => {
@@ -53,9 +53,19 @@ describe('HomeScreen', () => {
     expect(current).toHaveLength(1);
     expect(current[0].textContent).toBe('בית');
     expect(within(nav).getByRole('button', { name: 'הוספת פריט' }).disabled).toBe(true);
-    for (const label of ['רשימה', 'מועדפים', 'הבית שלי']) {
+    for (const label of ['רשימה', 'מועדפים']) {
       expect(within(nav).getByText(label).closest('[aria-disabled="true"]')).toBeTruthy();
     }
+  });
+
+  it('makes "הבית שלי" active and opens the household screen (Phase 1)', () => {
+    const onNavigate = vi.fn();
+    render(<HomeScreen onNavigate={onNavigate} />);
+    const nav = screen.getByRole('navigation', { name: 'ניווט ראשי' });
+    const household = within(nav).getByRole('button', { name: 'הבית שלי' });
+    expect(household.closest('[aria-disabled="true"]')).toBeNull();
+    fireEvent.click(household);
+    expect(onNavigate).toHaveBeenCalledWith('household');
   });
 
   it('does not render the dropped "חדשים היום" / "בני בית" stats', () => {
