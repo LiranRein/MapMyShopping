@@ -20,7 +20,8 @@
     "db:stop": "supabase stop",
     "db:reset": "supabase db reset",
     "test:integration": "vitest run -c vitest.integration.config.js",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:report": "node scripts/generate-test-report.mjs"
   },
   "dependencies": {
     "@fontsource-variable/rubik": "^5.3.0",

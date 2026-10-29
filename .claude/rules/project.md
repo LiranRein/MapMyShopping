@@ -17,6 +17,7 @@
 | Unit tests | `npm test` |
 | Integration tests (hosted dev, needs `.env.test.local`) | `npm run test:integration` |
 | E2E tests (hosted dev, needs `.env.test.local`; first run `npx playwright install chromium`) | `npm run test:e2e` |
+| Test report for the current phase | `npm run test:report` |
 | Lint | `npm run lint` |
 | Format check / fix | `npm run format:check` / `npm run format` |
 | Build (+ bundle secret scan) | `npm run build` |
@@ -29,6 +30,8 @@
 Every phase: run `npm run lint`, `npm run format:check`, `npm test`, `npm run test:integration`, `npm run test:e2e`, `npm run build` before writing the report.
 
 Test data on the shared dev project: names prefixed `t_<runId>_`, deleted after each run; `t_` data older than 24h swept by the integration global setup.
+
+Test reports: at the end of each phase, once the suites pass, run `npm run test:report`. It runs unit, integration and E2E, then writes one combined HTML report from the real run output to `docs/test-reports/phase-<N>.html` (phase from `shraga/PHASE.md`), and exits non-zero if any test failed. Commit that file as documentation that the phase's tests passed. The report auto-derives an acceptance-criteria matrix from the `(AC-x.y)` tags in the test names, so keep an `(AC-x.y)` tag in the describe title of every scenario that proves an acceptance criterion. Template: `scripts/test-report-template.html`; generator: `scripts/generate-test-report.mjs`.
 
 ## Folder layout
 - `src/presentation/` - screens, components, styles. No Supabase or IndexedDB calls here.

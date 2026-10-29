@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>__TITLE__</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #14201b;
+        --ink-2: #26342e;
+        --lime: #c6f36b;
+        --lime-soft: #eefbd6;
+        --canvas: #f2f3ef;
+        --surface: #ffffff;
+        --text: #14201b;
+        --muted: #5c655f;
+        --border: #e2e5df;
+        --pass: #2b6e2f;
+        --pass-soft: #e7f3e8;
+        --fail: #b42318;
+        --shadow: 0 10px 30px rgba(20, 32, 27, 0.08);
+        --font: 'Rubik', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+        color-scheme: light;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --ink: #c6f36b;
+          --ink-2: #b4e651;
+          --lime: #c6f36b;
+          --lime-soft: #26342e;
+          --canvas: #11170f;
+          --surface: #1a2219;
+          --text: #eef2e9;
+          --muted: #9aa69b;
+          --border: #2c362a;
+          --pass: #7fd089;
+          --pass-soft: #1e2b1d;
+          --fail: #f0a097;
+          --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+          color-scheme: dark;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--canvas);
+        color: var(--text);
+        font-family: var(--font);
+        font-variant-numeric: tabular-nums;
+        line-height: 1.5;
+      }
+      .wrap {
+        max-width: 920px;
+        margin-inline: auto;
+        padding-block: clamp(24px, 5vw, 48px) 64px;
+        padding-inline: max(16px, env(safe-area-inset-left, 0px));
+      }
+      header.top {
+        margin-bottom: 28px;
+      }
+      .eyebrow {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+      h1 {
+        margin: 6px 0 4px;
+        font-size: clamp(26px, 6vw, 38px);
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        text-wrap: balance;
+      }
+      .sub {
+        color: var(--muted);
+        font-size: 15px;
+      }
+      .sub bdi {
+        font-weight: 600;
+        color: var(--text);
+      }
+      .tiles {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin: 24px 0 36px;
+      }
+      @media (max-width: 560px) {
+        .tiles {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .tile {
+        background: var(--surface);
+        border-radius: 18px;
+        padding: 18px 16px;
+        box-shadow: var(--shadow);
+      }
+      .tile.hero {
+        background: var(--ink);
+        color: var(--canvas);
+      }
+      @media (prefers-color-scheme: dark) {
+        .tile.hero {
+          background: #0c120a;
+          color: var(--ink-2);
+        }
+      }
+      .tile .num {
+        font-size: 34px;
+        font-weight: 800;
+        line-height: 1;
+      }
+      .tile.hero .num {
+        color: var(--lime);
+      }
+      .tile.fail-num .num {
+        color: var(--fail);
+      }
+      .tile .lbl {
+        margin-top: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--muted);
+      }
+      .tile.hero .lbl {
+        color: color-mix(in srgb, var(--canvas) 75%, transparent);
+      }
+      @media (prefers-color-scheme: dark) {
+        .tile.hero .lbl {
+          color: #9aa69b;
+        }
+      }
+      h2 {
+        margin: 40px 0 14px;
+        font-size: 21px;
+        font-weight: 800;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      h2 .count {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--muted);
+      }
+      .lead {
+        color: var(--muted);
+        font-size: 14px;
+        margin: -6px 0 16px;
+      }
+      .matrix {
+        display: grid;
+        gap: 8px;
+      }
+      .ac {
+        background: var(--surface);
+        border-radius: 14px;
+        padding: 14px 16px;
+        box-shadow: var(--shadow);
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+      }
+      .ac .code {
+        font-weight: 800;
+        font-size: 13px;
+        background: var(--lime-soft);
+        color: var(--ink);
+        padding: 4px 9px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+      @media (prefers-color-scheme: dark) {
+        .ac .code {
+          color: var(--lime);
+        }
+      }
+      .ac .desc {
+        font-size: 13px;
+        min-width: 0;
+        color: var(--muted);
+      }
+      .ac .desc bdi {
+        font-weight: 600;
+        color: var(--text);
+      }
+      .group {
+        background: var(--surface);
+        border-radius: 16px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        margin-bottom: 12px;
+      }
+      .group > summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 15px 18px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .group > summary::-webkit-details-marker {
+        display: none;
+      }
+      .group > summary .chev {
+        width: 18px;
+        height: 18px;
+        flex: none;
+        transition: transform 0.2s ease;
+        color: var(--muted);
+      }
+      .group[open] > summary .chev {
+        transform: rotate(90deg);
+      }
+      .group .s-title {
+        font-weight: 700;
+        font-size: 15px;
+        flex: 1;
+        min-width: 0;
+        direction: ltr;
+        text-align: right;
+      }
+      .group .s-file {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 500;
+        direction: ltr;
+      }
+      .pill {
+        font-size: 12px;
+        font-weight: 800;
+        padding: 3px 10px;
+        border-radius: 999px;
+        background: var(--pass-soft);
+        color: var(--pass);
+        white-space: nowrap;
+      }
+      .pill.fail {
+        background: #fbeae8;
+        color: var(--fail);
+      }
+      @media (prefers-color-scheme: dark) {
+        .pill.fail {
+          background: #2b1a18;
+        }
+      }
+      ul.cases {
+        list-style: none;
+        margin: 0;
+        padding: 0 18px 10px;
+      }
+      ul.cases li {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 10px;
+        align-items: start;
+        padding: 9px 0;
+        border-top: 1px solid var(--border);
+        font-size: 13.5px;
+      }
+      ul.cases li .mark {
+        width: 18px;
+        height: 18px;
+        flex: none;
+        margin-top: 1px;
+        color: var(--pass);
+      }
+      ul.cases li.failed .mark {
+        color: var(--fail);
+      }
+      ul.cases li .title {
+        min-width: 0;
+        direction: ltr;
+        text-align: right;
+      }
+      footer {
+        margin-top: 44px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 12.5px;
+        line-height: 1.7;
+      }
+      footer code {
+        direction: ltr;
+        unicode-bidi: isolate;
+        font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+        background: var(--surface);
+        padding: 1px 6px;
+        border-radius: 6px;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="top">
+        <div class="eyebrow">MapMyShopping · דוח בדיקות</div>
+        <h1 id="h-title"></h1>
+        <p class="sub">כל בדיקה והתוצאה שלה, מתוך ריצה מלאה. <span id="stamp"></span></p>
+      </header>
+
+      <section class="tiles" id="tiles"></section>
+
+      <section id="ac-section" hidden>
+        <h2>כיסוי קריטריוני קבלה <span class="count" id="ac-range"></span></h2>
+        <p class="lead">
+          כל קריטריון קבלה שמופיע בשמות הבדיקות, מספר הבדיקות שמכסות אותו, והאם כולן עברו.
+        </p>
+        <div class="matrix" id="matrix"></div>
+      </section>
+
+      <h2>בדיקות יחידה <span class="count" id="c-unit"></span></h2>
+      <p class="lead">לוגיקה ורכיבי ממשק, בלי רשת.</p>
+      <div id="g-unit"></div>
+
+      <h2>בדיקות אינטגרציה <span class="count" id="c-int"></span></h2>
+      <p class="lead">מול בסיס הנתונים: RLS, פונקציות שרת, נעילות ואידמפוטנטיות.</p>
+      <div id="g-int"></div>
+
+      <h2>בדיקות קצה-לקצה <span class="count" id="c-e2e"></span></h2>
+      <p class="lead">זרימה מלאה בדפדפן בגודל טלפון.</p>
+      <div id="g-e2e"></div>
+
+      <footer>
+        דוח שנוצר אוטומטית ע״י <code>npm run test:report</code> מפלט ריצה אמיתי של הבדיקות. שמות
+        הבדיקות באנגלית כפי שהם בקוד.
+      </footer>
+    </div>
+
+    <script id="data" type="application/json">
+      __RESULTS__
+    </script>
+    <script>
+      const RESULTS = JSON.parse(document.getElementById('data').textContent);
+      const PHASE = __PHASE__;
+      const GENERATED = '__GENERATED__';
+
+      const check =
+        '<svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+      const cross =
+        '<svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+      const chev =
+        '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
+      const esc = (s) =>
+        String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
+
+      const all = [...RESULTS.unit, ...RESULTS.integration, ...RESULTS.e2e];
+      const total = all.length;
+      const passed = all.filter((t) => t.status === 'passed').length;
+      const failed = total - passed;
+
+      document.title = `בדיקות פאזה ${PHASE}`;
+      document.getElementById('h-title').textContent = `פאזה ${PHASE} — דוח בדיקות`;
+      document.getElementById('stamp').textContent = new Intl.DateTimeFormat('he-IL', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      }).format(new Date(GENERATED));
+
+      document.getElementById('tiles').innerHTML = [
+        { num: total, lbl: 'בדיקות בסך הכול', cls: 'hero' },
+        { num: passed, lbl: 'עברו' },
+        { num: failed, lbl: 'נכשלו', cls: failed ? 'fail-num' : '' },
+        { num: '', lbl: '', hide: true },
+      ]
+        .map((t, i) => {
+          if (t.hide) {
+            const acCount = acCodes().length;
+            return `<div class="tile"><div class="num">${acCount || '—'}</div><div class="lbl">קריטריוני קבלה</div></div>`;
+          }
+          return `<div class="tile ${t.cls || ''}"><div class="num">${t.num}</div><div class="lbl">${t.lbl}</div></div>`;
+        })
+        .join('');
+
+      function tagsOf(t) {
+        const text = `${t.suite || ''} ${t.title || ''}`;
+        return [...new Set(text.match(/AC-\d+\.\d+/g) || [])];
+      }
+      function acCodes() {
+        const set = new Set();
+        for (const t of all) for (const c of tagsOf(t)) set.add(c);
+        return [...set].sort((a, b) => {
+          const pa = a.slice(3).split('.').map(Number);
+          const pb = b.slice(3).split('.').map(Number);
+          return pa[0] - pb[0] || pa[1] - pb[1];
+        });
+      }
+
+      const codes = acCodes();
+      if (codes.length) {
+        document.getElementById('ac-section').hidden = false;
+        document.getElementById('ac-range').textContent =
+          `${codes[0]} עד ${codes[codes.length - 1]}`;
+        document.getElementById('matrix').innerHTML = codes
+          .map((code) => {
+            const rel = all.filter((t) => tagsOf(t).includes(code));
+            const ok = rel.length > 0 && rel.every((t) => t.status === 'passed');
+            const scen = [
+              ...new Set(rel.map((t) => (t.suite || '').match(/^T-[\d.]+/)?.[0]).filter(Boolean)),
+            ];
+            return `<div class="ac"><span class="code">${code}</span>
+              <span class="desc"><bdi>${scen.join(', ') || '—'}</bdi> · ${rel.length} בדיקות</span>
+              <span class="pill${ok ? '' : ' fail'}">${ok ? 'עבר' : 'נכשל'}</span></div>`;
+          })
+          .join('');
+      }
+
+      function caseRow(t) {
+        const ok = t.status === 'passed';
+        return `<li class="${ok ? '' : 'failed'}">${ok ? check : cross}<span class="title">${esc(t.title)}</span></li>`;
+      }
+
+      function renderGroups(list, mount) {
+        const el = document.getElementById(mount);
+        if (!list.length) {
+          el.innerHTML = `<div class="group"><summary style="cursor:default">${'<span class="s-title" style="direction:rtl">אין בדיקות</span>'}</summary></div>`;
+          return;
+        }
+        const map = new Map();
+        for (const t of list) {
+          const key = t.suite || t.file;
+          if (!map.has(key)) map.set(key, { file: t.file, items: [] });
+          map.get(key).items.push(t);
+        }
+        el.innerHTML = [...map]
+          .map(([suite, g], i) => {
+            const okN = g.items.filter((x) => x.status === 'passed').length;
+            const ok = okN === g.items.length;
+            return `<details class="group"${i < 2 ? ' open' : ''}>
+              <summary>${chev}<span class="s-title">${esc(suite)}</span>
+                <span class="s-file">${esc(g.file)}</span>
+                <span class="pill${ok ? '' : ' fail'}">${okN}/${g.items.length}</span>
+              </summary>
+              <ul class="cases">${g.items.map(caseRow).join('')}</ul>
+            </details>`;
+          })
+          .join('');
+      }
+
+      const s = RESULTS.summary;
+      document.getElementById('c-unit').textContent = `${s.unit.passed}/${s.unit.total}`;
+      document.getElementById('c-int').textContent =
+        `${s.integration.passed}/${s.integration.total}`;
+      document.getElementById('c-e2e').textContent = `${s.e2e.passed}/${s.e2e.total}`;
+      renderGroups(RESULTS.unit, 'g-unit');
+      renderGroups(RESULTS.integration, 'g-int');
+      renderGroups(RESULTS.e2e, 'g-e2e');
+    </script>
+  </body>
+</html>
