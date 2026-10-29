@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Home Option 1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+    <style>
+      :root {
+        --green-900: #0f3b2e;
+        --green-700: #2e6248;
+        --green-100: #dcebe2;
+        --green-50: #edf5f0;
+        --accent: #f2c230;
+        --coral: #d9534a;
+        --bg: #ffffff;
+        --surface: #f4f6f5;
+        --text: #13231c;
+        --muted: #6b7b73;
+        --border: #e3e8e5;
+        --shadow: 0 8px 24px rgba(15, 59, 46, 0.1);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Heebo', system-ui, sans-serif;
+        font-size: 16px;
+      }
+      .app {
+        max-width: 430px;
+        margin-inline: auto;
+        padding-block-end: 112px;
+      }
+      svg {
+        display: block;
+      }
+
+      .band {
+        background: var(--green-700);
+        color: #fff;
+        padding: 28px 20px 72px;
+        border-end-start-radius: 32px;
+        border-end-end-radius: 32px;
+      }
+      .band-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      .greet {
+        font-size: 14px;
+        opacity: 0.8;
+      }
+      .title {
+        margin: 2px 0 6px;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: -0.2px;
+      }
+      .sync {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        opacity: 0.85;
+      }
+      .sync .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #7ee2a8;
+      }
+      .square-btn {
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        border: 0;
+        border-radius: 14px;
+        background: #fff;
+        color: var(--green-900);
+        position: relative;
+      }
+      .square-btn .badge {
+        position: absolute;
+        inset-block-start: 10px;
+        inset-inline-end: 11px;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: 2px solid #fff;
+      }
+      .search-row {
+        display: flex;
+        gap: 10px;
+        margin-block-start: 22px;
+      }
+      .search {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 52px;
+        padding-inline: 16px;
+        border-radius: 14px;
+        background: #fff;
+        color: var(--muted);
+        font-size: 16px;
+      }
+      .search svg {
+        color: var(--text);
+      }
+
+      .summary {
+        position: relative;
+        margin: -48px 20px 0;
+        padding: 20px;
+        border-radius: 22px;
+        background: #fff;
+        box-shadow: var(--shadow);
+      }
+      .summary-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .summary-label {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .summary-count {
+        font-size: 32px;
+        font-weight: 800;
+        line-height: 1.15;
+      }
+      .summary-count small {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .summary-sub {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .ring {
+        position: relative;
+        width: 68px;
+        height: 68px;
+      }
+      .ring span {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .primary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        height: 52px;
+        margin-block-start: 18px;
+        border: 0;
+        border-radius: 14px;
+        background: var(--green-900);
+        color: #fff;
+        font: 600 16px 'Heebo', sans-serif;
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin: 22px 20px 0;
+      }
+      .action {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        aspect-ratio: 1 / 0.95;
+        border: 0;
+        border-radius: 18px;
+        background: var(--green-900);
+        color: #fff;
+        font: 500 13px 'Heebo', sans-serif;
+      }
+      .action.light {
+        background: var(--surface);
+        color: var(--text);
+      }
+
+      .section {
+        margin: 28px 20px 0;
+      }
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-block-end: 14px;
+      }
+      .section-head h2 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 800;
+      }
+      .see-all {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        color: var(--green-700);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .areas {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        text-align: center;
+      }
+      .area-circle {
+        display: grid;
+        place-items: center;
+        width: 64px;
+        height: 64px;
+        margin: 0 auto 8px;
+        border-radius: 50%;
+        background: var(--green-50);
+        color: var(--green-700);
+      }
+      .area-name {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .area-count {
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .favs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .fav {
+        padding: 10px;
+        border: 1.5px solid var(--border);
+        border-radius: 18px;
+      }
+      .fav-art {
+        position: relative;
+        display: grid;
+        place-items: center;
+        height: 88px;
+        border-radius: 12px;
+        background: var(--green-50);
+        color: var(--green-700);
+      }
+      .heart {
+        position: absolute;
+        inset-block-start: 8px;
+        inset-inline-start: 8px;
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        background: #fff;
+        color: var(--coral);
+      }
+      .fav-body {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 10px 4px 2px;
+      }
+      .fav-name {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .fav-unit {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .add {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border: 0;
+        border-radius: 50%;
+        background: var(--coral);
+        color: #fff;
+      }
+
+      .nav {
+        position: fixed;
+        inset-inline: 0;
+        inset-block-end: 16px;
+        width: min(100% - 32px, 398px);
+        margin-inline: auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        height: 68px;
+        border-radius: 26px;
+        background: var(--green-900);
+        box-shadow: 0 10px 30px rgba(15, 59, 46, 0.25);
+      }
+      .nav a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 12px;
+        font-weight: 500;
+        text-decoration: none;
+      }
+      .nav a[aria-current='page'] {
+        color: #fff;
+        font-weight: 700;
+      }
+      .nav a[aria-current='page']::after {
+        content: '';
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="band">
+        <div class="band-top">
+          <div>
+            <div class="greet">בוקר טוב</div>
+            <h1 class="title">הרשימה של הבית</h1>
+            <div class="sync"><span class="dot"></span>מסונכרן · עודכן לפני 2 דק׳</div>
+          </div>
+          <button class="square-btn" aria-label="התראות">
+            <i data-lucide="bell" width="22" height="22"></i><span class="badge"></span>
+          </button>
+        </div>
+        <div class="search-row">
+          <div class="search"><i data-lucide="search" width="22" height="22"></i>מה צריך לקנות?</div>
+          <button class="square-btn" aria-label="הוספה קולית" style="width: 52px; height: 52px">
+            <i data-lucide="mic" width="22" height="22"></i>
+          </button>
+        </div>
+      </header>
+
+      <section class="summary" aria-label="סיכום הרשימה">
+        <div class="summary-top">
+          <div>
+            <div class="summary-label">ברשימה עכשיו</div>
+            <div class="summary-count">12 <small>פריטים</small></div>
+            <div class="summary-sub">5 נאספו · 7 נותרו</div>
+          </div>
+          <div class="ring" role="img" aria-label="5 מתוך 12 נאספו">
+            <svg width="68" height="68" viewBox="0 0 68 68">
+              <circle cx="34" cy="34" r="28" fill="none" stroke="#edf5f0" stroke-width="8" />
+              <circle
+                cx="34"
+                cy="34"
+                r="28"
+                fill="none"
+                stroke="#2e6248"
+                stroke-width="8"
+                stroke-linecap="round"
+                stroke-dasharray="73.3 175.9"
+                transform="rotate(-90 34 34)"
+              />
+            </svg>
+            <span>5/12</span>
+          </div>
+        </div>
+        <button class="primary"><i data-lucide="shopping-cart" width="20" height="20"></i>יוצאים לקנות</button>
+      </section>
+
+      <nav class="actions" aria-label="פעולות מהירות">
+        <button class="action"><i data-lucide="plus" width="24" height="24"></i>הוספה</button>
+        <button class="action"><i data-lucide="list-checks" width="24" height="24"></i>הרשימה</button>
+        <button class="action"><i data-lucide="star" width="24" height="24"></i>מועדפים</button>
+        <button class="action light"><i data-lucide="layout-grid" width="24" height="24"></i>קטלוג</button>
+      </nav>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>לפי אזור בחנות</h2>
+          <span class="see-all">הכל<i data-lucide="chevron-left" width="16" height="16"></i></span>
+        </div>
+        <div class="areas">
+          <div>
+            <div class="area-circle"><i data-lucide="apple" width="28" height="28"></i></div>
+            <div class="area-name">ירקות ופירות</div>
+            <div class="area-count">4 פריטים</div>
+          </div>
+          <div>
+            <div class="area-circle"><i data-lucide="milk" width="28" height="28"></i></div>
+            <div class="area-name">מוצרי חלב</div>
+            <div class="area-count">3 פריטים</div>
+          </div>
+          <div>
+            <div class="area-circle"><i data-lucide="croissant" width="28" height="28"></i></div>
+            <div class="area-name">מאפים</div>
+            <div class="area-count">2 פריטים</div>
+          </div>
+          <div>
+            <div class="area-circle"><i data-lucide="spray-can" width="28" height="28"></i></div>
+            <div class="area-name">ניקיון</div>
+            <div class="area-count">3 פריטים</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>המועדפים שלנו</h2>
+          <span class="see-all">הכל<i data-lucide="chevron-left" width="16" height="16"></i></span>
+        </div>
+        <div class="favs">
+          <div class="fav">
+            <div class="fav-art">
+              <span class="heart"><i data-lucide="heart" width="16" height="16"></i></span>
+              <i data-lucide="egg" width="40" height="40"></i>
+            </div>
+            <div class="fav-body">
+              <div>
+                <div class="fav-name">ביצים L</div>
+                <div class="fav-unit">תבנית 12</div>
+              </div>
+              <button class="add" aria-label="הוסף ביצים"><i data-lucide="plus" width="20" height="20"></i></button>
+            </div>
+          </div>
+          <div class="fav">
+            <div class="fav-art">
+              <span class="heart"><i data-lucide="heart" width="16" height="16"></i></span>
+              <i data-lucide="coffee" width="40" height="40"></i>
+            </div>
+            <div class="fav-body">
+              <div>
+                <div class="fav-name">קפה טורקי</div>
+                <div class="fav-unit">200 גרם</div>
+              </div>
+              <button class="add" aria-label="הוסף קפה"><i data-lucide="plus" width="20" height="20"></i></button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <nav class="nav" aria-label="ניווט ראשי">
+      <a href="#" aria-current="page"><i data-lucide="home" width="22" height="22"></i>בית</a>
+      <a href="#"><i data-lucide="list-checks" width="22" height="22"></i>רשימה</a>
+      <a href="#"><i data-lucide="star" width="22" height="22"></i>מועדפים</a>
+      <a href="#"><i data-lucide="settings" width="22" height="22"></i>הגדרות</a>
+    </nav>
+
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>

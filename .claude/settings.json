@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "command": "d=\"${CLAUDE_PROJECT_DIR:-.}/shraga\"; if [ -f \"$d/PHASE.md\" ]; then echo \"[Shraga harness] Current phase (shraga/PHASE.md): $(tr -d '\\r' < \"$d/PHASE.md\" | head -n 1)\"; echo \"[Shraga harness] Files in shraga/:\"; (cd \"$d\" && ls -R); echo \"[Shraga harness] Determine the current step with the state table in CLAUDE.md before acting.\"; else echo \"[Shraga harness] shraga/PHASE.md is missing. Follow the gate in CLAUDE.md and tell the user in Hebrew.\"; fi"
+          }
+        ]
+      }
+    ]
+  }
+}

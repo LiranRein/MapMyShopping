@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onboarding Option B</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+    <style>
+      :root {
+        --ink: #14201b; --ink-2: #26342e; --lime: #c6f36b; --lime-soft: #eefbd6;
+        --bg: #f2f3ef; --white: #fff; --muted: #646e69; --subtle: #707a75; --border: #e2e5df;
+        --error: #b42318; --warning: #8a5300;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 32px 24px; background: #dfe2dc; color: var(--ink); font-family: 'Rubik', system-ui, sans-serif; }
+      .page-title { margin: 0 0 6px; font-size: 26px; font-weight: 800; }
+      .page-sub { margin: 0 0 28px; color: var(--muted); font-size: 15px; }
+      .grid { display: flex; flex-wrap: wrap; gap: 28px; }
+      figure { margin: 0; }
+      figcaption { margin-top: 10px; font-size: 14px; font-weight: 700; color: var(--muted); text-align: center; }
+      .phone { position: relative; width: 375px; height: 760px; overflow: hidden; border-radius: 40px; background: var(--bg); box-shadow: 0 20px 50px rgba(20, 32, 27, 0.18); }
+      .screen { height: 100%; display: flex; flex-direction: column; padding: 28px 20px 24px; }
+      svg { display: block; }
+      .back { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--white); }
+      .eyebrow { font-size: 15px; font-weight: 600; color: var(--muted); }
+      h1 { margin: 0; font-size: 30px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.15; }
+      h2 { margin: 0; font-size: 21px; font-weight: 800; }
+      p { margin: 0; }
+      .lead { margin-top: 10px; font-size: 15px; font-weight: 600; color: var(--muted); line-height: 1.45; }
+      .spacer { flex: 1; }
+      .cta { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 54px; padding-inline: 20px 8px; border: 0; border-radius: 18px; background: var(--lime); color: var(--ink); font: 800 17px 'Rubik', sans-serif; }
+      .cta .arrow { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--ink); color: var(--lime); }
+      .cta.ink { background: var(--ink); color: var(--white); }
+      .cta.ink .arrow { background: var(--lime); color: var(--ink); }
+      .cta.loading { opacity: 0.85; }
+      .spin { width: 22px; height: 22px; border: 3px solid rgba(20, 32, 27, 0.25); border-top-color: var(--ink); border-radius: 50%; }
+      .ghost { margin-top: 12px; text-align: center; font-size: 15px; font-weight: 700; color: var(--ink); opacity: 0.6; }
+      .steps { display: flex; gap: 6px; margin-top: 18px; }
+      .steps span { height: 6px; flex: 1; border-radius: 99px; background: var(--border); }
+      .steps span.on { background: var(--ink); }
+      .label { margin: 26px 0 8px; font-size: 15px; font-weight: 600; }
+      .field { display: flex; align-items: center; height: 56px; padding-inline: 16px; border: 1px solid var(--border); border-radius: 18px; background: var(--white); font-size: 17px; font-weight: 700; }
+      .field.focus { border: 2px solid var(--ink); }
+      .field.err { border: 2px solid var(--error); }
+      .field .ph { color: var(--subtle); font-weight: 500; }
+      .helper { margin-top: 8px; font-size: 13px; color: var(--muted); }
+      .error { display: flex; gap: 6px; align-items: center; margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--error); }
+      .code { direction: ltr; justify-content: center; letter-spacing: 3px; font-size: 24px; font-weight: 800; font-variant-numeric: tabular-nums; }
+      .welcome { background: var(--ink); color: var(--white); }
+      .mark { position: relative; width: 120px; height: 120px; margin: 70px auto 0; }
+      .mark span { position: absolute; inset: 0; display: grid; place-items: center; color: var(--lime); }
+      .welcome h1 { margin-top: 40px; text-align: center; font-size: 34px; }
+      .welcome .lead { text-align: center; color: rgba(255, 255, 255, 0.75); }
+      .bullets { margin: 34px 0 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+      .bullets li { display: flex; gap: 12px; align-items: center; font-size: 15px; font-weight: 600; color: rgba(255, 255, 255, 0.9); }
+      .bullets i, .bullets svg { color: var(--lime); }
+      .choice { margin-top: 26px; display: grid; gap: 12px; }
+      .card { padding: 20px; border-radius: 24px; background: var(--white); }
+      .card.dark { background: var(--ink); color: var(--white); }
+      .card .ic { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--bg); color: var(--ink); }
+      .card.dark .ic { background: var(--lime); }
+      .card h3 { margin: 16px 0 4px; font-size: 19px; font-weight: 800; }
+      .card p { font-size: 14px; color: var(--muted); line-height: 1.4; }
+      .card.dark p { color: rgba(255, 255, 255, 0.72); }
+      .card .row { display: flex; justify-content: space-between; align-items: flex-start; }
+      .banner { display: flex; gap: 10px; align-items: flex-start; margin-top: 16px; padding: 14px 16px; border-radius: 18px; background: var(--white); font-size: 14px; line-height: 1.4; }
+      .banner b { display: block; font-size: 15px; }
+      .banner .warn { color: var(--warning); }
+      .hh-head { display: flex; justify-content: space-between; align-items: center; }
+      .members { margin-top: 12px; padding: 6px 16px; border-radius: 24px; background: var(--white); }
+      .member { display: flex; align-items: center; gap: 12px; padding-block: 12px; }
+      .member + .member { border-top: 1px solid var(--border); }
+      .avatar { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--lime-soft); font-weight: 800; }
+      .member .name { font-size: 17px; font-weight: 700; }
+      .role { margin-inline-start: auto; padding: 4px 10px; border-radius: 99px; background: var(--bg); font-size: 12px; font-weight: 700; color: var(--muted); }
+      .role.mgr { background: var(--ink); color: var(--lime); }
+      .invite { margin-top: 22px; padding: 20px; border-radius: 28px; background: var(--ink); color: var(--white); }
+      .invite .k { font-size: 14px; color: rgba(255, 255, 255, 0.7); }
+      .invite .code-big { direction: ltr; margin: 10px 0 4px; font-size: 32px; font-weight: 800; letter-spacing: 4px; color: var(--lime); text-align: center; font-variant-numeric: tabular-nums; }
+      .invite .exp { text-align: center; font-size: 13px; color: rgba(255, 255, 255, 0.75); }
+      .invite .actions { display: flex; gap: 10px; margin-top: 16px; }
+      .pill { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; height: 48px; border: 0; border-radius: 18px; background: var(--lime); color: var(--ink); font: 800 15px 'Rubik', sans-serif; }
+      .pill.sec { background: var(--ink-2); color: var(--white); }
+      .nav { position: absolute; inset-inline: 16px; bottom: 16px; display: grid; grid-template-columns: 1fr 1fr 76px 1fr 1fr; align-items: center; height: 70px; border-radius: 24px; background: var(--white); box-shadow: 0 10px 30px rgba(20, 32, 27, 0.12); }
+      .nav a { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 12px; font-weight: 600; color: var(--muted); }
+      .nav a.on { color: var(--ink); font-weight: 800; }
+      .nav .add { display: grid; place-items: center; width: 60px; height: 60px; margin: -26px auto 0; border: 5px solid var(--bg); border-radius: 50%; background: var(--ink); color: var(--lime); }
+    </style>
+  </head>
+  <body>
+    <style>
+      .stepnum { margin-top: 22px; font-size: 14px; font-weight: 700; color: var(--muted); }
+      .hero-lite { margin-top: 36px; padding: 22px; border-radius: 28px; background: var(--white); }
+      .hero-lite .mini { display: flex; gap: 14px; align-items: center; }
+      .hero-lite .t { font-size: 13px; color: var(--muted); }
+      .hero-lite .b { font-size: 20px; font-weight: 800; line-height: 1.2; }
+      .feat { margin-top: 12px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+      .feat div { padding: 14px 12px; border-radius: 20px; background: var(--white); font-size: 14px; font-weight: 700; line-height: 1.3; }
+      .feat .ic2 { display: grid; place-items: center; width: 36px; height: 36px; margin-bottom: 12px; border-radius: 12px; background: var(--bg); }
+      .radio { display: flex; gap: 14px; align-items: center; padding: 18px; border: 2px solid transparent; border-radius: 20px; background: var(--white); }
+      .radio.sel { border-color: var(--ink); }
+      .radio .ic { display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 12px; background: var(--bg); }
+      .radio.sel .ic { background: var(--lime-soft); }
+      .radio b { display: block; font-size: 17px; }
+      .radio small { font-size: 14px; color: var(--muted); }
+      .dot { flex: none; width: 22px; height: 22px; margin-inline-start: auto; border: 2px solid var(--border); border-radius: 50%; }
+      .radio.sel .dot { border: 7px solid var(--ink); }
+      .segs { display: flex; gap: 10px; direction: ltr; }
+      .seg { flex: 1; display: grid; place-items: center; height: 64px; border: 1px solid var(--border); border-radius: 18px; background: var(--white); font-size: 24px; font-weight: 800; letter-spacing: 3px; }
+      .seg.focus { border: 2px solid var(--ink); }
+      .codebox { margin-top: 14px; padding: 18px; border-radius: 18px; background: var(--lime-soft); text-align: center; }
+      .codebox .c { direction: ltr; font-size: 30px; font-weight: 800; letter-spacing: 4px; }
+      .codebox .e { margin-top: 4px; font-size: 13px; color: var(--muted); }
+      .lockcard { margin-top: 18px; padding: 18px; border-radius: 20px; background: var(--white); text-align: center; }
+      .lockcard .n { font-size: 34px; font-weight: 800; font-variant-numeric: tabular-nums; }
+    </style>
+    <h1 class="page-title">אפשרות B - הכול בהיר, צעד אחרי צעד</h1>
+    <p class="page-sub">בלי מסך כהה בכניסה: כותרות גדולות, "שלב X מתוך 3", בחירה ברדיו-כרטיסים וכפתור דיו. קוד ההזמנה בשתי קוביות של 5 תווים, ונעילה מוצגת כספירה לאחור.</p>
+    <div class="grid">
+      <figure>
+        <div class="phone">
+          <div class="screen">
+            <div class="eyebrow">ברוכים הבאים</div>
+            <h1 style="margin-top: 4px">רשימת קניות אחת<br />לכל הבית</h1>
+            <p class="lead">כולם מוסיפים מכל טלפון, ומי שקונה רואה הכול לפי סדר האזורים בחנות.</p>
+            <div class="hero-lite"><div class="mini">
+              <svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" fill="none" stroke="#eefbd6" stroke-width="8" /><circle cx="32" cy="32" r="26" fill="none" stroke="#14201b" stroke-width="8" stroke-linecap="round" stroke-dasharray="70 163" transform="rotate(-90 32 32)" /></svg>
+              <div><div class="t">כך זה נראה</div><div class="b">12 פריטים ב-4 אזורים</div></div></div></div>
+            <div class="feat">
+              <div><span class="ic2"><i data-lucide="users-round" width="18" height="18"></i></span>משותף לכל הבית</div>
+              <div><span class="ic2"><i data-lucide="route" width="18" height="18"></i></span>לפי מסלול בחנות</div>
+              <div><span class="ic2"><i data-lucide="lock-keyhole" width="18" height="18"></i></span>בלי סיסמה</div>
+            </div>
+            <div class="spacer"></div>
+            <button class="cta ink">בואו נתחיל<span class="arrow"><i data-lucide="arrow-left" width="20" height="20"></i></span></button>
+          </div>
+        </div>
+        <figcaption>1. פתיחה</figcaption>
+      </figure>
+      <figure>
+        <div class="phone">
+          <div class="screen"><span class="back"><i data-lucide="chevron-right" width="21" height="21"></i></span>
+            <div class="stepnum">שלב 1 מתוך 3</div>
+            <h1 style="margin-top: 6px">איך קוראים לך?</h1>
+            <p class="lead">השם יופיע לבני הבית ליד מה שהוספת.</p>
+            <div class="label">שם תצוגה</div>
+            <div class="field focus">נועה</div>
+            <div class="helper">עד 40 תווים. אפשר לשנות אחר כך.</div>
+            <div class="spacer"></div>
+            <button class="cta ink">המשך<span class="arrow"><i data-lucide="arrow-left" width="20" height="20"></i></span></button>
+          </div>
+        </div>
+        <figcaption>2. שם תצוגה</figcaption>
+      </figure>
+      <figure>
+        <div class="phone">
+          <div class="screen"><span class="back"><i data-lucide="chevron-right" width="21" height="21"></i></span>
+            <div class="stepnum">שלב 2 מתוך 3</div>
+            <h1 style="margin-top: 6px">נעים להכיר, נועה</h1>
+            <p class="lead">בחרו איך ממשיכים.</p>
+            <div class="choice">
+              <div class="radio sel"><span class="ic"><i data-lucide="house-plus" width="22" height="22"></i></span><div><b>יצירת בית חדש</b><small>אתם תנהלו ותזמינו את בני הבית</small></div><span class="dot"></span></div>
+              <div class="radio"><span class="ic"><i data-lucide="key-round" width="22" height="22"></i></span><div><b>הצטרפות עם קוד</b><small>קיבלתם קוד הזמנה</small></div><span class="dot"></span></div>
+            </div>
+            <div class="spacer"></div>
+            <button class="cta ink">המשך<span class="arrow"><i data-lucide="arrow-left" width="20" height="20"></i></span></button>
+          </div>
+        </div>
+        <figcaption>3. יצירה או הצטרפות</figcaption>
+      </figure>
+      <figure>
+        <div class="phone">
+          <div class="screen"><span class="back"><i data-lucide="chevron-right" width="21" height="21"></i></span>
+            <div class="stepnum">שלב 3 מתוך 3</div>
+            <h1 style="margin-top: 6px">איך נקרא לבית?</h1>
+            <p class="lead">כך הבית יופיע לכל מי שיצטרף.</p>
+            <div class="label">שם הבית</div>
+            <div class="field err"><span class="ph">שם הבית</span></div>
+            <div class="error"><i data-lucide="circle-alert" width="16" height="16"></i>צריך לתת לבית שם.</div>
+            <div class="spacer"></div>
+            <button class="cta">יצירת הבית<span class="arrow"><i data-lucide="arrow-left" width="20" height="20"></i></span></button>
+          </div>
+        </div>
+        <figcaption>4. יצירת בית (שגיאת שדה)</figcaption>
+      </figure>
+      <figure>
+        <div class="phone">
+          <div class="screen"><span class="back"><i data-lucide="chevron-right" width="21" height="21"></i></span>
+            <div class="stepnum">שלב 3 מתוך 3</div>
+            <h1 style="margin-top: 6px">קוד הזמנה</h1>
+            <p class="lead">10 תווים, מקבלים ממי שמנהל את הבית.</p>
+            <div class="label">קוד</div>
+            <div class="segs"><span class="seg">K7PM4</span><span class="seg focus">QXD9R</span></div>
+            <div class="lockcard"><i data-lucide="timer" width="22" height="22" style="margin: 0 auto; color: var(--warning)"></i><div class="n">14:52</div><div class="helper" style="margin: 0">יותר מדי ניסיונות שגויים. אפשר לנסות שוב בעוד רבע שעה.</div></div>
+            <div class="spacer"></div>
+            <button class="cta" style="opacity: 0.4">הצטרפות<span class="arrow"><i data-lucide="arrow-left" width="20" height="20"></i></span></button>
+          </div>
+        </div>
+        <figcaption>5. הצטרפות עם קוד (נעילה)</figcaption>
+      </figure>
+      <figure>
+        <div class="phone">
+          <div class="screen">
+            <div class="hh-head"><div><div class="eyebrow">הבית שלי</div><h1>משפחת כהן</h1></div><span class="back"><i data-lucide="settings" width="21" height="21"></i></span></div>
+            <div class="card" style="margin-top: 20px">
+              <h2>הזמנת בן בית</h2>
+              <p style="margin-top: 4px">שלחו את הקוד למי שתרצו להוסיף. הקוד מוצג פעם אחת.</p>
+              <div class="codebox"><div class="c">K7PM4-QXD9R</div><div class="e">בתוקף עד מחר 14:32 · חד-פעמי</div></div>
+              <div style="display: flex; gap: 10px; margin-top: 12px"><button class="pill" style="background: var(--ink); color: var(--white)"><i data-lucide="copy" width="18" height="18"></i>העתקה</button><button class="pill" style="background: var(--bg)"><i data-lucide="refresh-cw" width="18" height="18"></i>קוד חדש</button></div>
+            </div>
+            <h2 style="margin-top: 22px">בני הבית · 2</h2>
+            <div class="members">
+              <div class="member"><span class="avatar">נ</span><span class="name">נועה (את)</span><span class="role mgr">מנהלת</span></div>
+              <div class="member"><span class="avatar">א</span><span class="name">אבי</span><span class="role">חבר</span></div>
+            </div>
+          </div>
+          <nav class="nav">
+            <a><i data-lucide="home" width="22" height="22"></i>בית</a>
+            <a><i data-lucide="list-checks" width="22" height="22"></i>רשימה</a>
+            <span class="add"><i data-lucide="plus" width="28" height="28"></i></span>
+            <a><i data-lucide="star" width="22" height="22"></i>מועדפים</a>
+            <a class="on"><i data-lucide="user-round" width="22" height="22"></i>הבית שלי</a>
+          </nav>
+        </div>
+        <figcaption>6. הבית שלי + קוד הזמנה</figcaption>
+      </figure>
+    </div>
+    <script>lucide.createIcons();</script>
+  </body>
+</html>

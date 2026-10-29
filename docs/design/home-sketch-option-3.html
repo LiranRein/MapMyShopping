@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Home Option 3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+    <style>
+      :root {
+        --ink: #14201b;
+        --ink-2: #26342e;
+        --lime: #c6f36b;
+        --lime-soft: #eefbd6;
+        --bg: #f2f3ef;
+        --white: #ffffff;
+        --muted: #707a75;
+        --border: #e2e5df;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: 'Rubik', system-ui, sans-serif;
+      }
+      .app {
+        max-width: 430px;
+        margin-inline: auto;
+        padding: 24px 20px 124px;
+      }
+      svg {
+        display: block;
+      }
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .eyebrow {
+        font-size: 15px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+      h1 {
+        margin: 0;
+        font-size: 30px;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+      }
+      .btns {
+        display: flex;
+        gap: 8px;
+      }
+      .round {
+        display: grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        border: 0;
+        border-radius: 50%;
+        background: var(--white);
+        color: var(--ink);
+      }
+
+      .hero {
+        margin-block-start: 20px;
+        padding: 22px;
+        border-radius: 28px;
+        background: var(--ink);
+        color: var(--white);
+      }
+      .hero-top {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+      .ring {
+        position: relative;
+        flex: none;
+        width: 96px;
+        height: 96px;
+      }
+      .ring span {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-content: center;
+        text-align: center;
+        line-height: 1.05;
+      }
+      .ring b {
+        font-size: 26px;
+        font-weight: 800;
+      }
+      .ring small {
+        font-size: 12px;
+        opacity: 0.7;
+      }
+      .hero-text .label {
+        font-size: 14px;
+        opacity: 0.7;
+      }
+      .hero-text .big {
+        font-size: 24px;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+      .sync {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-block-start: 6px;
+        font-size: 13px;
+        color: var(--lime);
+      }
+      .remaining {
+        margin-block-start: 4px;
+        font-size: 15px;
+        font-weight: 600;
+        opacity: 0.85;
+      }
+      .go {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 54px;
+        margin-block-start: 20px;
+        padding-inline: 20px 8px;
+        border: 0;
+        border-radius: 18px;
+        background: var(--lime);
+        color: var(--ink);
+        font: 800 17px 'Rubik', sans-serif;
+      }
+      .go .arrow {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: var(--ink);
+        color: var(--lime);
+      }
+
+      .section {
+        margin-block-start: 26px;
+      }
+      .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-block-end: 12px;
+      }
+      .head h2 {
+        margin: 0;
+        font-size: 21px;
+        font-weight: 800;
+      }
+      .link {
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--ink);
+        opacity: 0.6;
+      }
+
+      .route {
+        padding: 6px 16px;
+        border-radius: 24px;
+        background: var(--white);
+      }
+      .stop {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding-block: 14px;
+      }
+      .stop + .stop {
+        border-block-start: 1px solid var(--border);
+      }
+      .num {
+        display: grid;
+        place-items: center;
+        flex: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        background: var(--lime-soft);
+        font-weight: 800;
+      }
+      .stop.done .num {
+        background: var(--ink);
+        color: var(--lime);
+      }
+      .stop-name {
+        font-size: 17px;
+        font-weight: 700;
+      }
+      .stop-items {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .stop .count {
+        margin-inline-start: auto;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--muted);
+      }
+      .stop.done .stop-name {
+        color: var(--muted);
+      }
+
+      .tiles {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .tile {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        padding: 14px;
+        border-radius: 20px;
+        background: var(--white);
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .tile .ic {
+        display: grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: var(--bg);
+      }
+
+      .nav {
+        position: fixed;
+        inset-inline: 0;
+        inset-block-end: 16px;
+        width: min(100% - 32px, 398px);
+        margin-inline: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr 76px 1fr 1fr;
+        align-items: center;
+        height: 70px;
+        border-radius: 24px;
+        background: var(--white);
+        box-shadow: 0 10px 30px rgba(20, 32, 27, 0.12);
+      }
+      .nav a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .nav a[aria-current='page'] {
+        color: var(--ink);
+        font-weight: 800;
+      }
+      .add {
+        display: grid;
+        place-items: center;
+        width: 60px;
+        height: 60px;
+        margin: -26px auto 0;
+        border: 5px solid var(--bg);
+        border-radius: 50%;
+        background: var(--ink);
+        color: var(--lime);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="top">
+        <div>
+          <div class="eyebrow">יום חמישי · 29 באוק׳</div>
+          <h1>הרשימה של הבית</h1>
+        </div>
+        <div class="btns">
+          <button class="round" aria-label="חיפוש"><i data-lucide="search" width="21" height="21"></i></button>
+          <button class="round" aria-label="הגדרות"><i data-lucide="settings" width="21" height="21"></i></button>
+        </div>
+      </header>
+
+      <section class="hero" aria-label="סיכום הרשימה">
+        <div class="hero-top">
+          <div class="ring" role="img" aria-label="5 מתוך 12 נאספו">
+            <svg width="96" height="96" viewBox="0 0 96 96">
+              <circle cx="48" cy="48" r="40" fill="none" stroke="#26342e" stroke-width="10" />
+              <circle
+                cx="48"
+                cy="48"
+                r="40"
+                fill="none"
+                stroke="#c6f36b"
+                stroke-width="10"
+                stroke-linecap="round"
+                stroke-dasharray="104.7 251.3"
+                transform="rotate(-90 48 48)"
+              />
+            </svg>
+            <span><b>5/12</b><small>נאספו</small></span>
+          </div>
+          <div class="hero-text">
+            <div class="label">הקנייה הבאה</div>
+            <div class="big">12 פריטים<br />ב-4 אזורים</div>
+            <div class="remaining">7 נותרו לאסוף</div>
+            <div class="sync"><i data-lucide="check-circle-2" width="15" height="15"></i>מסונכרן עם כל הבית</div>
+          </div>
+        </div>
+        <button class="go">
+          יוצאים לקנות
+          <span class="arrow"><i data-lucide="arrow-left" width="20" height="20"></i></span>
+        </button>
+      </section>
+
+      <section class="section">
+        <div class="head">
+          <h2>המסלול בחנות</h2>
+          <span class="link">עריכת סדר<i data-lucide="chevron-left" width="16" height="16"></i></span>
+        </div>
+        <div class="route">
+          <div class="stop done">
+            <span class="num"><i data-lucide="check" width="18" height="18"></i></span>
+            <div><div class="stop-name">ירקות ופירות</div><div class="stop-items">עגבניות, מלפפונים, בננות</div></div>
+            <span class="count">4/4</span>
+          </div>
+          <div class="stop">
+            <span class="num">2</span>
+            <div><div class="stop-name">מוצרי חלב</div><div class="stop-items">חלב 3%, יוגורט, גבינה לבנה</div></div>
+            <span class="count">1/3</span>
+          </div>
+          <div class="stop">
+            <span class="num">3</span>
+            <div><div class="stop-name">מאפים</div><div class="stop-items">לחם מחמצת, פיתות</div></div>
+            <span class="count">0/2</span>
+          </div>
+          <div class="stop">
+            <span class="num">4</span>
+            <div><div class="stop-name">ניקיון</div><div class="stop-items">נוזל כלים, שקיות זבל</div></div>
+            <span class="count">0/3</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="head"><h2>קיצורים</h2></div>
+        <div class="tiles">
+          <div class="tile"><span class="ic"><i data-lucide="mic" width="20" height="20"></i></span>הוספה קולית</div>
+          <div class="tile"><span class="ic"><i data-lucide="star" width="20" height="20"></i></span>מועדפים</div>
+          <div class="tile"><span class="ic"><i data-lucide="layout-grid" width="20" height="20"></i></span>קטלוג</div>
+        </div>
+      </section>
+    </div>
+
+    <nav class="nav" aria-label="ניווט ראשי">
+      <a href="#" aria-current="page"><i data-lucide="home" width="22" height="22"></i>בית</a>
+      <a href="#"><i data-lucide="list-checks" width="22" height="22"></i>רשימה</a>
+      <button class="add" aria-label="הוספת פריט"><i data-lucide="plus" width="28" height="28"></i></button>
+      <a href="#"><i data-lucide="star" width="22" height="22"></i>מועדפים</a>
+      <a href="#"><i data-lucide="user-round" width="22" height="22"></i>הבית שלי</a>
+    </nav>
+
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
